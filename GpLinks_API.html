@@ -45,11 +45,22 @@
         }
 
         async function recordData(shortenedUrl, ipAddress, code) {
-            // Update the Google Apps Script URL with your actual script URL
+            // Use a proxy to handle CORS headers
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+            const requestOptions = {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXWEjl7gV8nAcGuGG5lZJuRfTVngREF2YyA9p0Lk_uJHfwnxXqgoihZdJU_sVJpXo_uQ/exec';
-            
-            // Call the Google Apps Script to record the data
-            await fetch(`${scriptUrl}?shortenedUrl=${encodeURIComponent(shortenedUrl)}&ipAddress=${encodeURIComponent(ipAddress)}&code=${encodeURIComponent(code)}`);
+            const apiUrl = `${proxyUrl}${scriptUrl}?shortenedUrl=${encodeURIComponent(shortenedUrl)}&ipAddress=${encodeURIComponent(ipAddress)}&code=${encodeURIComponent(code)}`;
+
+            // Call the proxy to record the data
+            await fetch(apiUrl, requestOptions);
         }
 
         document.addEventListener('DOMContentLoaded', function() {

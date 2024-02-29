@@ -11,7 +11,7 @@
     <script>
         // Function to generate a random number
         function generateRandomNumber() {
-            return Math.floor(Math.random() * 99999); // Adjust the range as needed
+            return Math.floor(Math.random() * 1000); // Adjust the range as needed
         }
 
         async function shortenUrl(originalUrl) {
@@ -24,14 +24,32 @@
 
             if (response.ok && data.status === 'success') {
                 const shortenedUrl = data.shortenedUrl;
-                document.getElementById('shortenedUrl').innerHTML = `<strong>Shortened URL:</strong> <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
                 
-                // Automatically redirect to the shortened URL
-                window.location.href = shortenedUrl;
+                // Get IP Address
+                const ipAddress = await fetch('https://api64.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => data.ip);
+
+                // Get some code (modify as needed)
+                const code = generateRandomNumber();
+
+                // Record data in Google Sheets
+                recordData(shortenedUrl, ipAddress, code);
+
+                // Display the shortened URL on the page
+                document.getElementById('shortenedUrl').innerHTML = `<strong>Shortened URL:</strong> <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
             } else {
                 const errorMessage = data.message || 'Unknown error';
                 document.getElementById('shortenedUrl').innerHTML = `<strong>Error:</strong> ${errorMessage}`;
             }
+        }
+
+        async function recordData(shortenedUrl, ipAddress, code) {
+            // Update the Google Apps Script URL with your actual script URL
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXWEjl7gV8nAcGuGG5lZJuRfTVngREF2YyA9p0Lk_uJHfwnxXqgoihZdJU_sVJpXo_uQ/exec';
+            
+            // Call the Google Apps Script to record the data
+            await fetch(`${scriptUrl}?shortenedUrl=${encodeURIComponent(shortenedUrl)}&ipAddress=${encodeURIComponent(ipAddress)}&code=${encodeURIComponent(code)}`);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -45,7 +63,7 @@
             } else {
                 // If 'link' parameter is not present, proceed with the API call and modification
                 const randomNumber = generateRandomNumber();
-                const initialUrl = `https://ms-hasib.github.io/Main/GpLinks_API.html?link=${randomNumber}`;
+                const initialUrl = `https://ms-hasib.github.io/Main/GpLinks_API?link=${randomNumber}`;
                 document.getElementById('originalUrl').value = initialUrl;
 
                 // Shorten the URL automatically on page load

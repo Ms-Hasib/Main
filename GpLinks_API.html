@@ -15,7 +15,7 @@
         }
 
         async function shortenUrl(originalUrl) {
-            const apiKey = '9cbacbda830bd0df9b6cbe03328bab330c231a37'; // Replace with your GPLinks API key
+            const apiKey = 'fe8c9717f4b84500ae977da14dcb302180cc337b'; // Replace with your GPLinks API key
 
             const apiUrl = `https://api.gplinks.com/api?api=${apiKey}&url=${originalUrl}`;
             
@@ -41,29 +41,15 @@
             if (linkParam) {
                 // If 'link' parameter is present, display a message and hide other elements
                 document.getElementById('originalUrl').style.display = 'none';
-                document.getElementById('shortenedUrl').innerHTML = '<script type="text/javascript">
-      if (typeof atAsyncOptions !== 'object') var atAsyncOptions = [];
-      atAsyncOptions.push({
-          'key': 'a2128f737536bf803d784396e8c289ff',
-          'format': 'js',
-          'async': true,
-          'container': 'atContainer-a2128f737536bf803d784396e8c289ff',
-          'params' : {}
-      });
-      var script = document.createElement('script');
-      script.type = "text/javascript";
-      script.async = true;
-      script.src = 'http' + (location.protocol === 'https:' ? 's' : '') + '://www.topcreativeformat.com/a2128f737536bf803d784396e8c289ff/invoke.js';
-      document.getElementsByTagName('head')[0].appendChild(script);
-  </script>
-
-  <div id="atContainer-a2128f737536bf803d784396e8c289ff"></div>
+                document.getElementById('shortenedUrl').innerHTML = '
   
   <h2><strong>Success:</strong> Your Point ar Added.</h2
-  
-  <script async="async" data-cfasync="false" src="//pl22521571.profitablegatecpm.com/2b91d6d66c32eb3a0ac1f5804461e959/invoke.js"></script>
-<div id="container-2b91d6d66c32eb3a0ac1f5804461e959"></div>
-<iframe data-aa='2306841' src='//ad.a-ads.com/2306841?size=728x90' style='width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>';
+                    
+<iframe data-aa='2306841' src='//ad.a-ads.com/2306841?size=728x90' style='width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>
+                    <br/>
+                    <button onclick="window.location.href='https://ms-hasib.github.io/Main/';">Click Here</button>
+                
+                ';
             } else {
                 // If 'link' parameter is not present, proceed with the API call and modification
                 const randomNumber = generateRandomNumber();

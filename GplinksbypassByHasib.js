@@ -1,3 +1,8 @@
+//Bypass By Hasib
+//V1.0 Data of GpLinks.com
+//@CopyRight By Hasib
+//Last Update =3/3/2024 --12:30 -- +6 Time Zone
+ 
 var randPost = GetRandom(postsArray);
 
 var link_id = getQueryParam("lid");
@@ -120,7 +125,7 @@ if (cookie_pub_id) {
 
 $(document).ready(function () {
   $("#VerifyBtn").on("click", async function () {
-    $("#VerifyBtn").html("Please Wait...");
+    $("#VerifyBtn").html("Please Wait... Bypass By Hasib");
     var expireTime = new Date(new Date().getTime() + 10 * 60 * 1000); // 10 mins
     var AdImps = Number(Cookies.get("imps"));
     var setVisitor_response = await setVisitor(next_status, AdImps, cookie_visitor_id);
@@ -305,7 +310,7 @@ function isPageVisible() {
         SetAdCookie();
         setTimeout(function () {
            goVerified();
-        }, 10000);
+        }, 1000);
         clearInterval(monitor); // Clear the interval.
         return !document.hidden; // return for on-screen 
       }

